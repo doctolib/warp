@@ -39,7 +39,11 @@ if [ "$NODE_ENV" = "" ]; then
   NODE_ENV=production
 fi
 
-nvm_command "nvm use v`cat .nvmrc` && npm install --$NODE_ENV"
+if [ "$YARN_VERSION" != "" ]; then
+  nvm_command "nvm use v`cat .nvmrc` && npm -g yarn@$YARN_VERSION && yarn --$NODE_ENV"
+else
+  nvm_command "nvm use v`cat .nvmrc` && npm install --$NODE_ENV"
+fi
 
 TMPDIR2=$(tmpdir)
 
@@ -75,4 +79,3 @@ secure_cd $WARP_EXPORT_DIR
 run $WARP_HOME/warper/warp_builder.sh $TARGET_NAME $TMPDIR2
 
 run rm -rf $TMPDIR2
-

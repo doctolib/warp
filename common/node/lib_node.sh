@@ -34,10 +34,16 @@ load_node_config() {
   if [ -f .node_external_version_command ]; then
     LOCAL_NPM_MODULES_HASH="${LOCAL_NPM_MODULES_HASH}_$(bash .node_external_version_command)"
   fi
+
+  if [ -f .yarn-version ]; then
+    YARN_VERSION=`cat .yarn-version`
+  else
+    YARN_VERSION=""
+  fi
 }
 
 generate_npm_modules() {
-  echo "npm_modules_$(generate_os_version)_${LOCAL_NODE_VERSION}_${LOCAL_NPM_MODULES_HASH}"
+  echo "npm_modules_$(generate_os_version)_${LOCAL_NODE_VERSION}_${YARN_VERSION}_${LOCAL_NPM_MODULES_HASH}"
 }
 
 nvm_command() {
