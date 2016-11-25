@@ -43,7 +43,7 @@ load_node_config() {
 }
 
 generate_npm_modules() {
-  if [ $YARN_VERSION = "" ]; then
+  if [ "$YARN_VERSION" = "" ]; then
     echo "npm_modules_$(generate_os_version)_${LOCAL_NODE_VERSION}_${LOCAL_NPM_MODULES_HASH}"
   else
     echo "npm_modules_$(generate_os_version)_${LOCAL_NODE_VERSION}_${YARN_VERSION}_${LOCAL_NPM_MODULES_HASH}"
