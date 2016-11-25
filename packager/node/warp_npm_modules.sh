@@ -39,10 +39,10 @@ if [ "$NODE_ENV" = "" ]; then
   NODE_ENV=production
 fi
 
-if [ "$YARN_VERSION" != "" ]; then
-  nvm_command "nvm use v`cat .nvmrc` && npm -g yarn@$YARN_VERSION && yarn --$NODE_ENV"
-else
+if [ "$YARN_VERSION" = "" ]; then
   nvm_command "nvm use v`cat .nvmrc` && npm install --$NODE_ENV"
+else
+  nvm_command "nvm use v`cat .nvmrc` && npm -g yarn@$YARN_VERSION && yarn --$NODE_ENV"
 fi
 
 TMPDIR2=$(tmpdir)
