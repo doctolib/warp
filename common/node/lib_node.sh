@@ -40,6 +40,8 @@ load_node_config() {
   else
     YARN_VERSION=""
   fi
+
+  export YARN_VERSION
 }
 
 generate_npm_modules() {
