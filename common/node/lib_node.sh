@@ -22,14 +22,12 @@ load_node_config() {
   fi
   if [ -f .version_command ]; then
     LOCAL_NPM_MODULES_HASH=`sh .version_command | md5sum | awk '{print $1}'`
-  else
-    if [ -f npm-shrinkwrap.json ]; then
-      LOCAL_NPM_MODULES_HASH=`cat npm-shrinkwrap.json | md5sum | awk '{print $1}'`
-    else
-      if [ -f package.json ] && [ "`grep dependencies package.json`" != "" ]; then
-        LOCAL_NPM_MODULES_HASH=`cat package.json | md5sum | awk '{print $1}'`
-      fi
-    fi
+  elif [ -f npm-shrinkwrap.json ]; then
+    LOCAL_NPM_MODULES_HASH=`cat npm-shrinkwrap.json | md5sum | awk '{print $1}'`
+  elif [ -f yarn.lock ]; then
+    LOCAL_NPM_MODULES_HASH=`cat yarn.lock | md5sum | awk '{print $1}'`
+  elif [ -f package.json ] && [ "`grep dependencies package.json`" != "" ]; then
+    LOCAL_NPM_MODULES_HASH=`cat package.json | md5sum | awk '{print $1}'`
   fi
   if [ -f .node_external_version_command ]; then
     LOCAL_NPM_MODULES_HASH="${LOCAL_NPM_MODULES_HASH}_$(bash .node_external_version_command)"
