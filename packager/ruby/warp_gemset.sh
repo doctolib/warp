@@ -26,7 +26,7 @@ read_sys_dependencies
 bundler_version=$(grep -A1 "BUNDLED WITH" Gemfile.lock | tail -n 1 | tr -d ' ')
 
 if [ "$bundler_version" = "" ]; then
-  echo "Bundler is not installed"
+  echo "Bundler version not found in Gemfile.lock"
   exit 1
 fi
 
