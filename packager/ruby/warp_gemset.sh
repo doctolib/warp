@@ -23,7 +23,7 @@ exit_if_existent $WARP_EXPORT_DIR/$TARGET_NAME
 
 read_sys_dependencies
 
-bundler_version=`gem list bundler | grep bundler | perl -pe 's/\D*(\d+\.\d+\.\d+).*/\\1/'`
+bundler_version=$(grep -A1 "BUNDLED WITH" Gemfile.lock | tail -n 1 | tr -d ' ')
 
 if [ "$bundler_version" = "" ]; then
   echo "Bundler is not installed"
